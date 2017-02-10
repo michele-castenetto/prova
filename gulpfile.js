@@ -1,7 +1,8 @@
-/// <reference path="bower_components/jquery/dist/jquery.min.js" />
+
 
 var gulp = require('gulp');
-// var del = require('del');
+var minify = require('gulp-minify');
+var del = require('del');
 // var sass = require('gulp-sass');
 // var plumber = require('gulp-plumber');
 
@@ -26,6 +27,15 @@ var toMove = [
     }
 ];
 
+// var libsToMove = [
+//     paths.bowerSrc + '/jquery/dist/jquery.js'
+// ];
+// gulp.task('buildlibs', function () {
+//     console.log('Moving libraries to /libs path ...');
+//     gulp.src(libsToMove).pipe(gulp.dest(paths.libs));
+//     console.log('Done!');
+//     return;
+// });
 gulp.task('buildlibs', function () {
     console.log('Moving libraries task ...');
     toMove.forEach(function(item) {
@@ -36,16 +46,26 @@ gulp.task('buildlibs', function () {
     return;
 });
 
-// var libsToMove = [
-//     paths.bowerSrc + '/jquery/dist/jquery.js'
-// ];
-
-// gulp.task('buildlibs', function () {
-//     console.log('Moving libraries to /libs path ...');
-//     gulp.src(libsToMove).pipe(gulp.dest(paths.libs));
-//     console.log('Done!');
-//     return;
+// gulp.task('compress', function() {
+//   gulp.src('lib/*.js')
+//     .pipe(minify({
+//         ext:{
+//             src:'-debug.js',
+//             min:'.js'
+//         },
+//         exclude: ['tasks'],
+//         ignoreFiles: ['.combo.js', '-min.js']
+//     }))
+//     .pipe(gulp.dest('dist'))
 // });
+gulp.task('compress', function () {
+    gulp.src('./js/app.js').pipe(minify()).pipe(gulp.dest('./js/')); 
+    return;
+});
+
+
+
+
 
 // gulp.task('clean_vendor', function () {
 //     return del([paths.css, paths.libs]);
