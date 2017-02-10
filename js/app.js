@@ -1,3 +1,7 @@
+
+
+
+
 (function() {
 
     var _$app = $('#app');
@@ -6,4 +10,6 @@
     var html = template.replace(new RegExp('{{title}}', 'g'), "APP");
     _$app.html(html);
     
+
 })();
+

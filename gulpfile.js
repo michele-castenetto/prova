@@ -5,31 +5,47 @@ var gulp = require('gulp');
 // var sass = require('gulp-sass');
 // var plumber = require('gulp-plumber');
 
-
 gulp.task('default', function() {
     // console.log('default');
 });
 
 var paths = {
-    npmSrc: "./node_modules/",
-    bowerSrc: "./bower_components",
-    sassSrc: "sass/",
-    libs: "./libs",
-    css: "./css",
-    js: "./js"
+    npm: "./node_modules/",
+    bower: "./bower_components/",
+    sass: "./sass/",
+    libs: "./libs/",
+    css: "./css/",
+    js: "./js/"
 };
 
-var libsToMove = [
-    paths.bowerSrc + '/jquery/dist/jquery.js'
+var toMove = [
+    {
+        name: "jquery",
+        source: paths.bower + "jquery/dist/jquery.js",
+        destination: paths.libs + "jquery/"
+    }
 ];
 
-
 gulp.task('buildlibs', function () {
-    console.log('Moving libraries to /libs path ...');
-    gulp.src(libsToMove).pipe(gulp.dest(paths.libs));
-    console.log('Done!');
+    console.log('Moving libraries task ...');
+    toMove.forEach(function(item) {
+        console.log('Moving ' + item.name + ' library ...');
+        gulp.src(item.source).pipe(gulp.dest(item.destination)); 
+        console.log('Done!');
+    });
     return;
 });
+
+// var libsToMove = [
+//     paths.bowerSrc + '/jquery/dist/jquery.js'
+// ];
+
+// gulp.task('buildlibs', function () {
+//     console.log('Moving libraries to /libs path ...');
+//     gulp.src(libsToMove).pipe(gulp.dest(paths.libs));
+//     console.log('Done!');
+//     return;
+// });
 
 // gulp.task('clean_vendor', function () {
 //     return del([paths.css, paths.libs]);
